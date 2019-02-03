@@ -1,0 +1,18 @@
+[package]
+name = "albizia"
+version = "0.1.0"
+authors = ["Gris Ge <cnfourt@gmail.com>"]
+
+[dependencies]
+toml = ">=0.4"
+pnet = ">=0.21"
+serde = ">=1.0"
+serde_derive = ">=1.0"
+
+[[bin]]
+name = "abzd"
+path = "src/daemon/abzd.rs"
+
+[[bin]]
+name = "abz"
+path = "src/cli/abz.rs"

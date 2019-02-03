@@ -1,0 +1,45 @@
+TODO:
+ * Server up a tcp socket for voting principle node.
+
+Threads:
+ * Main
+    * Do nothing but start threads and connect them.
+ * Communicator
+    * Recv IpcData from peer nodes and redirect to `Commander`.
+    * Send IpcData to peer nodes.
+ * Commander
+    * Get IpcData from Communicator and redirect to its responsible thread.
+ * Doctor
+    * Parse heart beat from principle node, if peers changes,
+      send `UpdatePeerNodes` command.
+    * Send heart beat to principle node.
+ * Principle
+    * Do nothing but sleep unless got `StartPrinciple` command.
+
+Roles:
+ * Principle
+    * Decide the roles of all nodes.
+    * Recive and send heart beat from/to all nodes.
+ * Data
+ * Regenerator
+
+Network flow(json):
+
+ * Action list
+    1. Heart beat
+
+ * Heart beat.
+   Send to every one.
+
+```
+{
+    "cid": u128, <uuid_of_cluster>
+    "nid": u128, <uuid_of_node>
+    "ts:   u64, <timestamp>
+    "act": u8, 1
+}
+```
+
+ * Sync cluster state
+
+ * Vote for principle node
