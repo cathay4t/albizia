@@ -23,6 +23,8 @@ extern crate toml;
 mod conf;
 mod error;
 mod net;
+mod ipc;
+mod comm;
 
 use conf::*;
 use error::*;

@@ -14,28 +14,17 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // Author: Gris Ge <cnfourt@gmail.com>
-//
-use pnet::datalink;
-use std::vec::Vec;
 
-fn get_local_nic_ips() -> Vec<String> {
-    let mut ips = Vec::new();
-    for iface in datalink::interfaces() {
-        for ip in iface.ips {
-            ips.push(ip.to_string().split('/').next().unwrap().to_string());
-        }
-    }
-    ips
+use error::*;
+use ipc::AbzIpcData;
+use std::sync::mpsc::{Sender, Reciever};
+
+pub struct AbzNodeMgr {
+    comm_recv: &Sender,
+
 }
 
-pub fn get_peer_node_ips(all_nodes: &Vec<String>) -> Vec<String> {
-    let mut ret:Vec<String> = Vec::new();
-    let local_ips = get_local_nic_ips();
-
-    for node in all_nodes {
-        if ! local_ips.contains(&node) {
-            ret.push(node.clone())
-        }
+impl AbzNodeMgr {
+    pub fn start(recv_from_comm: &Reciever) -> Result<AbzNodeMgr> {
     }
-    ret
 }

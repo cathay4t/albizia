@@ -14,28 +14,29 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // Author: Gris Ge <cnfourt@gmail.com>
-//
-use pnet::datalink;
-use std::vec::Vec;
 
-fn get_local_nic_ips() -> Vec<String> {
-    let mut ips = Vec::new();
-    for iface in datalink::interfaces() {
-        for ip in iface.ips {
-            ips.push(ip.to_string().split('/').next().unwrap().to_string());
-        }
-    }
-    ips
+use error::*;
+use ipc::AbzIpcData;
+use std::sync::mpsc::Sender;
+
+pub struct AbzComm {
+    socks: Vec<std::net::TcpStream>,
+    send_to_comm: Sender,
 }
 
-pub fn get_peer_node_ips(all_nodes: &Vec<String>) -> Vec<String> {
-    let mut ret:Vec<String> = Vec::new();
-    let local_ips = get_local_nic_ips();
-
-    for node in all_nodes {
-        if ! local_ips.contains(&node) {
-            ret.push(node.clone())
-        }
+impl AbzComm {
+    pub fn start(send_to_node_mgr: &mut Sender) -> Result<AbzComm> {
+        // Start a thread to select all peer nodes sockets and forward all
+        // received data to AbzNodeMgr
+        Ok(())
     }
-    ret
+    pub fn send(&self, node: Option<&str>, data: &AbzIpcData) -> Result<()> {
+        Ok(())
+    }
+    pub fn add_node(&self, node: &str) -> Result<()> {
+        Ok(())
+    }
+    pub fn del_node(&self, node: &str) -> Result<()> {
+        Ok(())
+    }
 }

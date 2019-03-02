@@ -1,20 +1,23 @@
 TODO:
  * Server up a tcp socket for voting principle node.
+ * Use event-loop: https://medium.com/@polyglot_factotum/rust-regret-less-concurrency-2238b9e53333
 
 Threads:
  * Main
     * Do nothing but start threads and connect them.
- * Communicator
-    * Recv IpcData from peer nodes and redirect to `Commander`.
-    * Send IpcData to peer nodes.
- * Commander
-    * Get IpcData from Communicator and redirect to its responsible thread.
- * Doctor
+ * Communicator -- `AbzComm`
+    * Recv AbzIpcData from peer nodes and redirect to `Commander`.
+    * Send AbzIpcData to peer nodes.
+ * NodeManager -- `AbzNodeMgr`
+    * Get AbzIpcData from Communicator and redirect to its responsible thread.
+    * Maintain a list of active peer nodes.
+ * Doctor -- `AbzDoc`
     * Parse heart beat from principle node, if peers changes,
       send `UpdatePeerNodes` command.
     * Send heart beat to principle node.
- * Principle
-    * Do nothing but sleep unless got `StartPrinciple` command.
+    * Regenerate the corrupted data as .
+ * Principle -- `AbzPrinciple`
+    * Handle principle role.
 
 Roles:
  * Principle
@@ -23,7 +26,7 @@ Roles:
  * Data
  * Regenerator
 
-Network flow(json):
+AbzIpcData (json):
 
  * Action list
     1. Heart beat
